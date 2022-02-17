@@ -1,59 +1,35 @@
 package us.nickfraction.oofmod;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
-import us.nickfraction.oofmod.commands.OpenMenuCommand;
-import us.nickfraction.oofmod.gui.screens.GuiMainMenu;
 import us.nickfraction.oofmod.listeners.OofModListener;
-import us.nickfraction.oofmod.modcore.ModCoreInstaller;
-import us.nickfraction.oofmod.settings.Settings;
 
-@Mod(modid = OofMod.MODID, version = OofMod.VERSION, name = OofMod.NAME)
-public class OofMod
-{
-    public static final String MODID = "refractionoof";
-    public static final String VERSION = "2.0.2";
-    public static final String NAME = "OofMod";
+@Mod(
+        name = OofMod.NAME,
+        version = OofMod.VERSION,
+        modid = OofMod.MODID
+)
+public class OofMod {
+    public static final String MODID = "@ID@";
+    public static final String VERSION = "@VERSION@";
+    public static final String NAME = "@NAME@";
 
-    private Settings settings;
+    @Mod.Instance private static OofMod INSTANCE;
+    private OofModConfig config;
 
-    private boolean openMenu;
-
-    public OofMod() throws Exception {
-        settings = new Settings();
-    }
-
-    @EventHandler
-    public void init(FMLInitializationEvent event) throws Exception {
-        ModCoreInstaller.initializeModCore(Minecraft.getMinecraft().mcDataDir);
-
-        MinecraftForge.EVENT_BUS.register(this);
+    @EventHandler public void initialize(FMLInitializationEvent event) {
+        config = new OofModConfig();
+        config.initialize();
         MinecraftForge.EVENT_BUS.register(new OofModListener(this));
-        ClientCommandHandler.instance.registerCommand(new OpenMenuCommand(this));
-        settings.loadConfig();
     }
 
-    public Settings getSettings() {
-        return settings;
+    public OofModConfig getConfig() {
+        return config;
     }
 
-    @SubscribeEvent
-    public void onRenderTick(TickEvent.RenderTickEvent e){
-        if(openMenu){
-            Minecraft.getMinecraft().displayGuiScreen(new GuiMainMenu(this));
-            openMenu = false;
-        }
-    }
-
-    public void openMenu(){
-        openMenu = true;
+    public static OofMod getInstance() {
+        return INSTANCE;
     }
 }
