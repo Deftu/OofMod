@@ -6,9 +6,9 @@ The same old OofMod, but better!
 </div>
 
 ## Screenshots
-![.github/config1.png]
-![.github/config2.png]
-![.github/config3.png]
+![Configuration screen](.github/config1.png)
+![Empty sound configuration screen](.github/config2.png)
+![Sound configuration screen](.github/config3.png)
 
 <!--
 ## Permission
