@@ -10,28 +10,40 @@ import us.nickfraction.oofmod.gui.SoundSelectorScreen
 import java.io.File
 
 class OofModConfig : Vigilant(
-    File(File(Minecraft.getMinecraft().mcDataDir, "config"), "${OofMod.MODID}.toml"),
+    Minecraft.getMinecraft().mcDataDir.resolve("config/Deftu/${OofMod.NAME}/config.toml").also { if (!it.parentFile.exists() && !it.parentFile.mkdirs()) throw IllegalStateException("Failed to make OofMod config directory.") },
     "${ChatColor.GREEN}${OofMod.NAME}"
 ) {
     @Property(
         type = PropertyType.SWITCH,
         name = "Toggle",
-        category = "General"
+        category = "General",
+        description = "The master toggle for the mod."
     ) var toggle = true
     @Property(
         type = PropertyType.SLIDER,
         name = "Volume",
         category = "General",
-        min = -10,
-        max = 30
-    ) var volume = -10f
+        description = "The amount of decibels to increase/decrease the sound by when playing.",
+        min = -50,
+        max = 5
+    ) var volume = 5
     @Property(
         type = PropertyType.BUTTON,
         name = "Open Sounds Menu",
-        category = "General"
+        category = "General",
+        description = "Opens the sound configuration menu."
     ) fun openSoundsMenu() {
         EssentialAPI.getGuiUtil().openScreen(SoundSelectorScreen())
     }
+
+    @Property(
+        type = PropertyType.TEXT,
+        name = "Selected sound",
+        category = "Sounds",
+        hidden = true
+    ) var selectedSound = ""
+    val selectedSoundFile: File
+        get() = Minecraft.getMinecraft().mcDataDir.resolve("config/Deftu/${OofMod.NAME}/Sounds/$selectedSound")
 
     init {
         hidePropertyIf("volume") { !toggle }

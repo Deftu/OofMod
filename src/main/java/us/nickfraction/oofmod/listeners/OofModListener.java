@@ -9,35 +9,22 @@ import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import us.nickfraction.oofmod.OofMod;
+import us.nickfraction.oofmod.utils.SoundHelper;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class OofModListener {
-
-    private Minecraft mc = Minecraft.getMinecraft();
-    private OofMod mod;
+    private final Minecraft mc = Minecraft.getMinecraft();
     private String nameToCheck = "";
 
-    public OofModListener(OofMod mod) {
-        this.mod = mod;
-    }
-
     @SubscribeEvent
-    public void onDeathMessage(ClientChatReceivedEvent event) throws Exception {
-        if (nameToCheck.isEmpty()) {
-            nameToCheck = mc.thePlayer.getName();
-        }
-
+    public void onDeathMessage(ClientChatReceivedEvent event) {
+        if (nameToCheck.isEmpty()) nameToCheck = mc.thePlayer.getName();
         String line = event.message.getUnformattedText();
-
-        if (!mod.getSettings().isEnabled() || line.split(" ").length == 0) {
+        String[] splitLine = line.split(" ");
+        if (!OofMod.getInstance().getConfig().getToggle() || OofMod.getInstance().getConfig().getSelectedSound().isEmpty() || line.isEmpty() || splitLine.length == 0)
             return;
-        }
 
         String killMessageRegex = "(\\w{1,16}).+ (by|of|to|for|with) (" + nameToCheck + ")";
         String usernamePatternRegex = "^[a-zA-Z0-9_-]{3,16}$";
@@ -46,12 +33,15 @@ public class OofModListener {
         Pattern usernamePattern = Pattern.compile(usernamePatternRegex);
 
         Matcher killMessageMatcher = killMessagePattern.matcher(line);
-        Matcher usernameMatcher = usernamePattern.matcher(line.split(" ")[0]);
+        Matcher usernameMatcher = usernamePattern.matcher(splitLine[0]);
 
         if (usernameMatcher.matches() && killMessageMatcher.find()) {
             String killed = killMessageMatcher.group(1);
             if (!killed.equals(nameToCheck)) {
-                playOofSound();
+                SoundHelper.playSound(
+                        OofMod.getInstance().getConfig().getSelectedSoundFile(),
+                        OofMod.getInstance().getConfig().getVolume()
+                );
             }
         }
     }
@@ -73,18 +63,4 @@ public class OofModListener {
             }
         }
     }
-
-    private void playOofSound() throws Exception {
-        if(!mod.getSettings().getSelectedSound().exists()){
-            return;
-        }
-
-        AudioInputStream audioIn = AudioSystem.getAudioInputStream(mod.getSettings().getSelectedSound().toURI().toURL());
-        Clip clip = AudioSystem.getClip();
-        clip.open(audioIn);
-        FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(mod.getSettings().getVolume() - 30f);
-        clip.start();
-    }
-
 }

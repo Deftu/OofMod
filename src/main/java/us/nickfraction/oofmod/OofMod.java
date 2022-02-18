@@ -1,9 +1,11 @@
 package us.nickfraction.oofmod;
 
+import gg.essential.api.EssentialAPI;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import us.nickfraction.oofmod.command.OofModCommand;
 import us.nickfraction.oofmod.listeners.OofModListener;
 
 @Mod(
@@ -16,13 +18,19 @@ public class OofMod {
     public static final String VERSION = "@VERSION@";
     public static final String NAME = "@NAME@";
 
+    public static final String DEFAULT_SOUND_URL = "https://oofmodsound.powns.dev/oof.wav";
+
     @Mod.Instance private static OofMod INSTANCE;
     private OofModConfig config;
 
-    @EventHandler public void initialize(FMLInitializationEvent event) {
+    @Mod.EventHandler public void initialize(FMLInitializationEvent event) {
         config = new OofModConfig();
         config.initialize();
-        MinecraftForge.EVENT_BUS.register(new OofModListener(this));
+        MinecraftForge.EVENT_BUS.register(new OofModListener());
+    }
+
+    @Mod.EventHandler public void postInitialize(FMLPostInitializationEvent event) {
+        EssentialAPI.getCommandRegistry().registerCommand(new OofModCommand());
     }
 
     public OofModConfig getConfig() {

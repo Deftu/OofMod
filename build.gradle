@@ -2,6 +2,7 @@ plugins {
     id "net.minecraftforge.gradle.forge" version "6f53277"
     id "com.github.johnrengelman.shadow" version "6.1.0"
     id "org.jetbrains.kotlin.jvm" version "1.6.10"
+    id "net.kyori.blossom" version "1.3.0"
     id "java"
 }
 
@@ -14,9 +15,12 @@ minecraft {
     runDir = "run"
     mappings = "stable_22"
     makeObfSourceJar = false
-    replace("@NAME@", projectName)
-    replace("@VER@": projectVersion)
-    replace("@ID@", projectId)
+}
+
+blossom {
+    replaceToken("@VERSION@", projectVersion)
+    replaceToken("@NAME@", projectName)
+    replaceToken("@ID@", projectId)
 }
 
 configurations {
@@ -58,4 +62,5 @@ shadowJar {
     archiveClassifier.set("")
 }
 
+jar.manifest.attributes("TweakClass": "gg.essential.loader.stage0.EssentialSetupTweaker")
 jar.finalizedBy(shadowJar)

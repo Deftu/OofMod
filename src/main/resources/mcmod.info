@@ -1,16 +1,18 @@
 [
-{
-  "modid": "refractionoof",
-  "name": "OofMod",
-  "description": "Plays a sound whenever you kill someone :)",
-  "version": "2.0.2",
-  "mcversion": "1.8.9",
-  "url": "",
-  "updateUrl": "",
-  "authorList": ["Refraction", "powns"],
-  "credits": "Sk1er LLC",
-  "logoFile": "",
-  "screenshots": [],
-  "dependencies": []
-}
+  {
+    "modid": "oofmod",
+    "name": "OofMod",
+    "description": "Plays a sound when something happens.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": [
+      "Deftu"
+    ],
+    "credits": "Refraction, Powns, Sk1er LLC",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
 ]
