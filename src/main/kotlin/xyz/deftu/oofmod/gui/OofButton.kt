@@ -1,4 +1,4 @@
-package us.nickfraction.oofmod.gui
+package xyz.deftu.oofmod.gui
 
 import gg.essential.elementa.components.UIBlock
 import gg.essential.elementa.components.UIContainer

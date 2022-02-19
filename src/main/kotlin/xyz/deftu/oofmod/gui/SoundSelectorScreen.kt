@@ -1,4 +1,4 @@
-package us.nickfraction.oofmod.gui
+package xyz.deftu.oofmod.gui
 
 import gg.essential.api.gui.EssentialGUI
 import gg.essential.elementa.ElementaVersion
@@ -16,8 +16,8 @@ import gg.essential.elementa.constraints.animation.Animations
 import gg.essential.elementa.dsl.*
 import gg.essential.universal.ChatColor
 import net.minecraft.client.Minecraft
-import us.nickfraction.oofmod.OofMod
-import us.nickfraction.oofmod.utils.SoundHelper
+import xyz.deftu.oofmod.OofMod
+import xyz.deftu.oofmod.utils.SoundHelper
 import java.awt.Color
 import java.io.File
 import java.io.FileOutputStream
@@ -26,7 +26,10 @@ import java.net.URL
 import java.nio.channels.Channels
 
 
-class SoundSelectorScreen : EssentialGUI(
+class SoundSelectorScreen(
+    val selectedSound: String,
+    val selectedSoundCallback: (String) -> Unit
+) : EssentialGUI(
     ElementaVersion.V1,
     "${ChatColor.GREEN}${OofMod.NAME}"
 ) {
@@ -49,7 +52,7 @@ class SoundSelectorScreen : EssentialGUI(
         files?.let {
             if (it.isNotEmpty()) {
                 for (file in it) {
-                    soundComponents.add(SoundComponent(file, {
+                    soundComponents.add(SoundComponent(file, selectedSoundCallback, {
                         if (soundComponents.contains(it)) {
                             soundContainer.clearChildren()
                             val indexRaw = soundComponents.indexOf(it)
@@ -68,8 +71,13 @@ class SoundSelectorScreen : EssentialGUI(
                         x = CenterConstraint()
                         y = CenterConstraint()
                     })
-                    if (it.indexOf(file) == 0) soundComponents[0] childOf soundContainer
                 }
+
+                if (selectedSound.isNotEmpty()) {
+                    val filtered = soundComponents.filter { it.file.name == selectedSound }
+                    if (filtered.isEmpty()) soundComponents[0] childOf soundContainer
+                    else filtered[0] childOf soundContainer
+                } else soundComponents[0] childOf soundContainer
             } else empty()
         } ?: empty()
     }
@@ -101,8 +109,8 @@ class SoundSelectorScreen : EssentialGUI(
 
     override fun onScreenClose() {
         selectedFile?.let {
-            val config = OofMod.getInstance().config
-            config.selectedSound = it.name
+            val config = OofMod.instance.config
+            selectedSoundCallback.invoke(it.name)
             config.markDirty()
             config.writeData()
         }
@@ -119,7 +127,8 @@ class SoundSelectorScreen : EssentialGUI(
     }
 
     internal class SoundComponent(
-        file: File,
+        val file: File,
+        val selectedSoundCallback: (String) -> Unit,
         val prevCallback: (SoundComponent) -> Unit,
         val nextCallback: (SoundComponent) -> Unit
     ) : UIComponent() {
@@ -152,8 +161,8 @@ class SoundSelectorScreen : EssentialGUI(
             width = 96.pixels()
             height = 32.pixels()
         }.onMouseClick {
-            val config = OofMod.getInstance().config
-            config.selectedSound = file.name
+            val config = OofMod.instance.config
+            selectedSoundCallback.invoke(file.name)
             config.markDirty()
             config.writeData()
         } childOf interactivesContainer
@@ -162,7 +171,7 @@ class SoundSelectorScreen : EssentialGUI(
             width = 96.pixels()
             height = 32.pixels()
         }.onMouseClick {
-            SoundHelper.playSound(file, OofMod.getInstance().config.volume)
+            SoundHelper.playSound(file, OofMod.instance.config.volume)
         } childOf interactivesContainer
         val nextBlock = OofButton(">", Color.RED).constrain {
             x = SiblingConstraint(2f)
