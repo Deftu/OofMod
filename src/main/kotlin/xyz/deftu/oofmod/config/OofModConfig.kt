@@ -6,15 +6,16 @@ import gg.essential.vigilance.Vigilant
 import gg.essential.vigilance.data.Property
 import gg.essential.vigilance.data.PropertyType
 import net.minecraft.client.Minecraft
+import net.minecraft.launchwrapper.Launch
 import xyz.deftu.oofmod.OofMod
 import xyz.deftu.oofmod.gui.SoundSelectorScreen
 import java.io.File
 import java.util.regex.Pattern
 
 class OofModConfig : Vigilant(
-    file = Minecraft.getMinecraft().mcDataDir.resolve("config/Deftu/${OofMod.NAME}/config.toml")
+    Launch.minecraftHome.resolve("config/Deftu/${OofMod.NAME}/config.toml")
         .also { if (!it.parentFile.exists() && !it.parentFile.mkdirs()) throw IllegalStateException("Failed to make OofMod config directory.") },
-    guiTitle = "${ChatColor.GREEN}${OofMod.NAME}"
+    "${ChatColor.GREEN}${OofMod.NAME}"
 ) {
     /* General settings. */
     @Property(
