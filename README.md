@@ -6,7 +6,7 @@ The same old OofMod, but better!
 </div>
 
 ![Download Count](https://img.shields.io/github/downloads/Deftu/OofMod/total?color=990000&style=for-the-badge)\
-[![Discord Banner](https://discordapp.com/api/guilds/944877423281967135/widget.png?style=banner4)](https://discord.gg/dFb277Kexf)
+[![Discord Banner](https://discordapp.com/api/guilds/944877423281967135/widget.png?style=banner2)](https://discord.gg/dFb277Kexf)
 
 ## Screenshots
 ![General configuration screen](.github/config1.png)
