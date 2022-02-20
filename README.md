@@ -5,6 +5,8 @@ The same old OofMod, but better!
 
 </div>
 
+![Download count](https://img.shields.io/github/downloads/Deftu/OofMod/total?color=990000&style=for-the-badge)
+
 ## Screenshots
 ![General configuration screen](.github/config1.png)
 ![Kill sound configuration screen](.github/config2.png)
