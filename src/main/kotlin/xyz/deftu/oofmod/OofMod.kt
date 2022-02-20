@@ -1,6 +1,7 @@
 package xyz.deftu.oofmod
 
 import gg.essential.api.EssentialAPI
+import gg.essential.universal.ChatColor
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
@@ -41,6 +42,15 @@ class OofMod {
         const val VERSION = "@VERSION@"
         const val NAME = "@NAME@"
         const val DEFAULT_SOUND_URL = "https://oofmodsound.powns.dev/oof.wav"
+        const val DISCORD_URL = "https://discord.gg/dFb277Kexf"
+
+        @JvmStatic
+        fun sendMessage(message: String) =
+            EssentialAPI.getMinecraftUtil()
+                .sendMessage(
+                    ChatColor.translateAlternateColorCodes('&', "&l&7[&r&a$NAME&r&ll&7]"),
+                    ChatColor.translateAlternateColorCodes('&', message)
+                )
 
         @Mod.Instance @JvmStatic lateinit var instance: OofMod
             private set

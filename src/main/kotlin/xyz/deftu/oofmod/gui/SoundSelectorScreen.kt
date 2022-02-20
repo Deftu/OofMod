@@ -1,5 +1,6 @@
 package xyz.deftu.oofmod.gui
 
+import gg.essential.api.EssentialAPI
 import gg.essential.api.gui.EssentialGUI
 import gg.essential.elementa.ElementaVersion
 import gg.essential.elementa.UIComponent
@@ -15,6 +16,7 @@ import gg.essential.elementa.constraints.SiblingConstraint
 import gg.essential.elementa.constraints.animation.Animations
 import gg.essential.elementa.dsl.*
 import gg.essential.universal.ChatColor
+import gg.essential.universal.UDesktop
 import net.minecraft.client.Minecraft
 import xyz.deftu.oofmod.OofMod
 import xyz.deftu.oofmod.utils.SoundHelper
@@ -22,6 +24,7 @@ import java.awt.Color
 import java.io.File
 import java.io.FileOutputStream
 import java.io.FilenameFilter
+import java.net.URI
 import java.net.URL
 import java.nio.channels.Channels
 
@@ -95,14 +98,21 @@ class SoundSelectorScreen(
                 setColorAnimation(Animations.OUT_EXP, 1f, Color.WHITE.toConstraint())
             }
         }.onMouseClick {
-            val byteChannel = Channels.newChannel(URL(OofMod.DEFAULT_SOUND_URL).openStream())
-            val outputStream = FileOutputStream(
-                File(
-                    soundsDir,
-                    OofMod.DEFAULT_SOUND_URL.substring(OofMod.DEFAULT_SOUND_URL.lastIndexOf("/"))
-                ).also { if (!it.parentFile.exists() && !it.parentFile.mkdirs()) throw IllegalStateException("Failed to make OofMod config directory.") }
-            )
-            outputStream.channel.transferFrom(byteChannel, 0, Long.MAX_VALUE)
+            try {
+                val byteChannel = Channels.newChannel(URL(OofMod.DEFAULT_SOUND_URL).openStream())
+                val outputStream = FileOutputStream(
+                    File(
+                        soundsDir,
+                        OofMod.DEFAULT_SOUND_URL.substring(OofMod.DEFAULT_SOUND_URL.lastIndexOf("/"))
+                    ).also { if (!it.parentFile.exists() && !it.parentFile.mkdirs()) throw IllegalStateException("Failed to make OofMod config directory.") }
+                )
+                outputStream.channel.transferFrom(byteChannel, 0, Long.MAX_VALUE)
+            } catch (e: Exception) {
+                EssentialAPI.getNotifications().push(OofMod.NAME, "Couldn't download default sound. Click me to open the download link!", action = {
+                    UDesktop.browse(URI.create(OofMod.DEFAULT_SOUND_URL))
+                })
+            }
+
             reload()
         } childOf content
     }
