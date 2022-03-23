@@ -16,11 +16,11 @@ class KillListener {
         line?.let {
             val split = it.split(" ")
             if (split.isEmpty()) return
-            val killMessageMatcher = OofMod.instance.config.killDeathPattern.matcher(it)
+            /*val killMessageMatcher = OofMod.instance.config.killDeathPattern.matcher(it)
             val bedBreakMatcher = OofMod.instance.config.bedBreakPattern.matcher(it)
             if (killMessageMatcher.find() && !bedBreakMatcher.find() && killMessageMatcher.group("killer") == PlayerHelper.playerName) {
                 SoundHelper.playSound(OofMod.instance.config.selectedKillSoundFile, OofMod.instance.config.volume)
-            }
+            }*/
         }
     }
 }

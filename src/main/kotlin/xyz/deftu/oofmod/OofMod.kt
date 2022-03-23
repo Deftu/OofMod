@@ -7,34 +7,42 @@ import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import xyz.deftu.oofmod.config.OofModConfig
+import xyz.deftu.oofmod.handlers.impl.RegexHandler
 import xyz.deftu.oofmod.listeners.BedBreakListener
 import xyz.deftu.oofmod.listeners.DeathListener
 import xyz.deftu.oofmod.listeners.KillListener
 import xyz.deftu.oofmod.utils.PlayerHelper
-
+import xyz.unifycraft.unicore.api.UniCore
+import java.io.File
 
 @Mod(
     name = OofMod.NAME,
     version = OofMod.VERSION,
     modid = OofMod.MODID
-)
-class OofMod {
-    lateinit var config: OofModConfig
-        private set
-
+) class OofMod {
     @Mod.EventHandler
     fun initialize(event: FMLInitializationEvent) {
-        PlayerHelper.initialize()
-        config = OofModConfig().also { it.initialize() }
+        configDir = File(File(UniCore.getFileHelper().configDir, "Deftu"), NAME)
+        soundsDir = File(configDir, "Sounds")
+        if (!configDir.exists() && !configDir.mkdirs())
+            throw IllegalStateException("Failed to make $NAME config directory.")
+        if (!soundsDir.exists() && !soundsDir.mkdirs())
+            throw IllegalStateException("Failed to make $NAME sounds directory.")
 
+        // Start the player utility checker.
+        PlayerHelper.initialize()
+        // Initialize the mod config via Vigilance's in-built initializer method.
+        OofModConfig.initialize()
+        // Start the regex handler thread.
+        RegexHandler.start(configDir.resolve("regex.json").toPath())
+
+        // Register our command with UniCOre's command registry.
+        UniCore.getCommandRegistry().registerCommand(OofModCommand())
+
+        // Register the event listeners so sounds can be played when needed.
         MinecraftForge.EVENT_BUS.register(BedBreakListener())
         MinecraftForge.EVENT_BUS.register(DeathListener())
         MinecraftForge.EVENT_BUS.register(KillListener())
-    }
-
-    @Mod.EventHandler
-    fun postInitialize(event: FMLPostInitializationEvent) {
-        EssentialAPI.getCommandRegistry().registerCommand(OofModCommand())
     }
 
     companion object {
@@ -43,6 +51,11 @@ class OofMod {
         const val NAME = "@NAME@"
         const val DEFAULT_SOUND_URL = "https://oofmodsound.powns.dev/oof.wav"
         const val DISCORD_URL = "https://discord.gg/dFb277Kexf"
+
+        lateinit var configDir: File
+            private set
+        lateinit var soundsDir: File
+            private set
 
         @JvmStatic
         fun sendMessage(message: String) =

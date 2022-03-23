@@ -12,9 +12,8 @@ import xyz.deftu.oofmod.gui.SoundSelectorScreen
 import java.io.File
 import java.util.regex.Pattern
 
-class OofModConfig : Vigilant(
-    Launch.minecraftHome.resolve("config/Deftu/${OofMod.NAME}/config.toml")
-        .also { if (!it.parentFile.exists() && !it.parentFile.mkdirs()) throw IllegalStateException("Failed to make OofMod config directory.") },
+object OofModConfig : Vigilant(
+    File(OofMod.configDir, "config.toml"),
     "${ChatColor.GREEN}${OofMod.NAME}"
 ) {
     /* General settings. */
@@ -40,22 +39,6 @@ class OofModConfig : Vigilant(
         min = -50,
         max = 5
     ) var volume = 5
-    @Property(
-        type = PropertyType.TEXT,
-        name = "Kill/Death Message Regex",
-        category = "Advanced",
-        description = "The Regex used when checking kill/death messages."
-    ) var killDeathRegex = "(?<username>\\w{1,16}).+ (by|of|to|for|with|the) (?:(?<killer>\\w{1,16}))"
-    @Property(
-        type = PropertyType.TEXT,
-        name = "Bed Break Message Regex",
-        category = "Advanced",
-        description = "The Regex used when checking bed break messages."
-    ) var bedBreakRegex = "(?<colour>\\w{3,7}) Bed.+ (by|of|to|for|with) (?<username>\\w{1,16})"
-    var killDeathPattern = Pattern.compile(killDeathRegex, Pattern.CASE_INSENSITIVE)
-        private set
-    var bedBreakPattern = Pattern.compile(bedBreakRegex, Pattern.CASE_INSENSITIVE)
-        private set
 
     /* Death sound settings. */
     @Property(
@@ -145,9 +128,5 @@ class OofModConfig : Vigilant(
 
     init {
         addDependency("volume", "advancedSettings")
-        addDependency("killDeathRegex", "advancedSettings")
-        addDependency("bedBreakRegex", "advancedSettings")
-        registerListener("killDeathRegex", RegexPropertyListener { killDeathPattern = it })
-        registerListener("bedBreakRegex", RegexPropertyListener { bedBreakPattern = it })
     }
 }

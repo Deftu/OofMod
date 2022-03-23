@@ -36,7 +36,8 @@ class SoundSelectorScreen(
     ElementaVersion.V1,
     "${ChatColor.GREEN}${OofMod.NAME}"
 ) {
-    private val soundsDir = Minecraft.getMinecraft().mcDataDir.resolve("config/Deftu/${OofMod.NAME}/Sounds")
+    private val soundsDir: File
+        get() = OofMod.instance.soundsDir
     private val soundComponents = mutableListOf<SoundComponent>()
     private var selectedFile: File? = null
     private val soundContainer = UIContainer().constrain {
@@ -104,7 +105,7 @@ class SoundSelectorScreen(
                     File(
                         soundsDir,
                         OofMod.DEFAULT_SOUND_URL.substring(OofMod.DEFAULT_SOUND_URL.lastIndexOf("/"))
-                    ).also { if (!it.parentFile.exists() && !it.parentFile.mkdirs()) throw IllegalStateException("Failed to make OofMod config directory.") }
+                    )
                 )
                 outputStream.channel.transferFrom(byteChannel, 0, Long.MAX_VALUE)
             } catch (e: Exception) {

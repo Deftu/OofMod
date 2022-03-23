@@ -4,8 +4,10 @@ import gg.essential.universal.ChatColor
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import xyz.deftu.oofmod.OofMod
+import xyz.deftu.oofmod.handlers.impl.RegexHandler
 import xyz.deftu.oofmod.utils.PlayerHelper
 import xyz.deftu.oofmod.utils.SoundHelper
+import xyz.deftu.oofmod.utils.checkEach
 
 class BedBreakListener {
     @SubscribeEvent
@@ -16,8 +18,10 @@ class BedBreakListener {
         line?.let {
             val split = it.split(" ")
             if (split.isEmpty()) return
-            val bedBreakMatcher = OofMod.instance.config.bedBreakPattern.matcher(it)
-            if (bedBreakMatcher.find() && bedBreakMatcher.group("username") == PlayerHelper.playerName) {
+            val matcher = RegexHandler.cache.getOrCache("bed_break").checkEach(it)
+            println(matcher)
+            if (matcher.find() && matcher.group("username") == PlayerHelper.playerName) {
+                println("I'm supposed to be playing a sound right now :)")
                 SoundHelper.playSound(OofMod.instance.config.selectedBedBreakSoundFile, OofMod.instance.config.volume)
             }
         }

@@ -1,12 +1,12 @@
 [
   {
-    "modid": "oofmod",
-    "name": "OofMod",
-    "description": "Plays a sound when something happens.",
+    "modid": "oofmodreborn",
+    "name": "OofMod Reborn",
+    "description": "Plays a custom sound when something happens.",
     "version": "${version}",
     "mcversion": "${mcversion}",
-    "url": "",
-    "updateUrl": "",
+    "url": "https://github.com/Deftu/OofModReborn",
+    "updateUrl": "https://github.com/Deftu/OofModReborn/releases/latest",
     "authorList": [
       "Deftu"
     ],
