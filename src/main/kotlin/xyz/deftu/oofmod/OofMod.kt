@@ -5,7 +5,6 @@ import gg.essential.universal.ChatColor
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import xyz.deftu.oofmod.config.OofModConfig
 import xyz.deftu.oofmod.handlers.impl.RegexHandler
 import xyz.deftu.oofmod.listeners.BedBreakListener
@@ -36,7 +35,7 @@ import java.io.File
         // Start the regex handler thread.
         RegexHandler.start(configDir.resolve("regex.json").toPath())
 
-        // Register our command with UniCOre's command registry.
+        // Register our command with UniCore's command registry.
         UniCore.getCommandRegistry().registerCommand(OofModCommand())
 
         // Register the event listeners so sounds can be played when needed.
@@ -44,7 +43,6 @@ import java.io.File
         MinecraftForge.EVENT_BUS.register(DeathListener())
         MinecraftForge.EVENT_BUS.register(KillListener())
     }
-
     companion object {
         const val MODID = "@ID@"
         const val VERSION = "@VERSION@"
