@@ -9,6 +9,21 @@ The same old OofMod, but better!
 ![Latest Download Count](https://img.shields.io/github/downloads-pre/Deftu/OofMod/latest/total?color=990000&style=for-the-badge)\
 [![Discord Banner](https://discordapp.com/api/guilds/944877423281967135/widget.png?style=banner2)](https://discord.gg/dFb277Kexf)
 
+## Changes
+```diff
++ Added Essential.
++ Rewritten command to use Essential.
++ Rewritten settings to use Vigilance.
++ Replaced sound config menu with custom screen using Essential's design.
++ Added a kill sound type.
++ Added a death sound type.
++ Added a bed break sound type.
++ Added overall better error handling.
+
+- Removed ModCore.
+- Removed multiple game-breaking bugs.
+```
+
 ## Screenshots
 ![General configuration screen](.github/config1.png)
 ![Kill sound configuration screen](.github/config2.png)
