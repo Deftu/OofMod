@@ -1,10 +1,11 @@
 <div align="center">
 
-# `OofMod v4`
+# [`OofMod v4`]
 The same old OofMod, but better!
 
 </div>
 
+## Support
 [![Discord Banner](https://discordapp.com/api/guilds/944877423281967135/widget.png?style=banner2)](https://discord.gg/dFb277Kexf)
 
 ## Changes
