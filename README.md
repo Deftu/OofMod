@@ -1,23 +1,26 @@
 <div align="center">
 
-# `OofMod v4`
-The same old OofMod, but better!
+# [`OofMod Reborn`]
+[![Discord Banner](https://discordapp.com/api/guilds/944877423281967135/widget.png?style=banner2)](https://discord.gg/dFb277Kexf)
 
 </div>
 
-![Download Count](https://img.shields.io/github/downloads/Deftu/OofMod/total?color=990000&style=for-the-badge)
-![Latest Download Count](https://img.shields.io/github/downloads-pre/Deftu/OofMod/latest/total?color=990000&style=for-the-badge)\
-[![Discord Banner](https://discordapp.com/api/guilds/944877423281967135/widget.png?style=banner2)](https://discord.gg/dFb277Kexf)
-
-## Screenshots
-![General configuration screen](.github/config1.png)
-![Kill sound configuration screen](.github/config2.png)
-![Death sound configuration screen](.github/config3.png)
-![Bed break sound configuration screen](.github/config4.png)
-![Advanced configuration screen](.github/config5.png)
-![Empty sound configuration screen](.github/config6.png)
-![Sound configuration screen](.github/config7.png)
-
 ## Permission
-I have asked Powns if I may make and distribute this fork as an official unnofficial version of OofMod.
+I have asked Powns if I
+may make this recreation
+of his mod. In this discussion,
+we discussed a **fork** of the
+original. Now, this is a standalone
+project with none of the original's code.
 ![Powns' permission](.github/permission.png)
+
+<div align="center">
+
+**Original OofMod by [Powns][powns]**\
+**This project is licensed under [LGPL-3.0][lgpl3]**\
+**&copy; 2022 Deftu**
+
+</div>
+
+[powns]: https://powns.dev
+[lgpl3]: https://www.gnu.org/licenses/lgpl-3.0.en.html

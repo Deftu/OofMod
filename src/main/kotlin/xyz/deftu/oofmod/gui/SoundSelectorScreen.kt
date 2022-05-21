@@ -19,6 +19,7 @@ import gg.essential.universal.ChatColor
 import gg.essential.universal.UDesktop
 import net.minecraft.client.Minecraft
 import xyz.deftu.oofmod.OofMod
+import xyz.deftu.oofmod.config.OofModConfig
 import xyz.deftu.oofmod.utils.SoundHelper
 import java.awt.Color
 import java.io.File
@@ -37,7 +38,7 @@ class SoundSelectorScreen(
     "${ChatColor.GREEN}${OofMod.NAME}"
 ) {
     private val soundsDir: File
-        get() = OofMod.instance.soundsDir
+        get() = OofMod.soundsDir
     private val soundComponents = mutableListOf<SoundComponent>()
     private var selectedFile: File? = null
     private val soundContainer = UIContainer().constrain {
@@ -120,10 +121,9 @@ class SoundSelectorScreen(
 
     override fun onScreenClose() {
         selectedFile?.let {
-            val config = OofMod.instance.config
             selectedSoundCallback.invoke(it.name)
-            config.markDirty()
-            config.writeData()
+            OofModConfig.markDirty()
+            OofModConfig.writeData()
         }
 
         super.onScreenClose()
@@ -172,17 +172,16 @@ class SoundSelectorScreen(
             width = 96.pixels()
             height = 32.pixels()
         }.onMouseClick {
-            val config = OofMod.instance.config
             selectedSoundCallback.invoke(file.name)
-            config.markDirty()
-            config.writeData()
+            OofModConfig.markDirty()
+            OofModConfig.writeData()
         } childOf interactivesContainer
         val previewBlock = OofButton("Preview", Color.GRAY).constrain {
             y = SiblingConstraint(2f)
             width = 96.pixels()
             height = 32.pixels()
         }.onMouseClick {
-            SoundHelper.playSound(file, OofMod.instance.config.volume)
+            SoundHelper.playSound(file, OofModConfig.volume)
         } childOf interactivesContainer
         val nextBlock = OofButton(">", Color.RED).constrain {
             x = SiblingConstraint(2f)

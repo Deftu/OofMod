@@ -4,14 +4,15 @@ import gg.essential.universal.ChatColor
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import xyz.deftu.oofmod.OofMod
+import xyz.deftu.oofmod.config.OofModConfig
 import xyz.deftu.oofmod.utils.PlayerHelper
 import xyz.deftu.oofmod.utils.SoundHelper
 
 class KillListener {
     @SubscribeEvent
     fun onChatMessageReceived(event: ClientChatReceivedEvent) {
-        if (!OofMod.instance.config.killToggle) return
-        if (OofMod.instance.config.selectedKillSound.isEmpty()) return
+        if (!OofModConfig.killToggle) return
+        if (OofModConfig.selectedKillSound.isEmpty()) return
         val line = ChatColor.stripControlCodes(event.message.unformattedText)
         line?.let {
             val split = it.split(" ")
