@@ -1,9 +1,10 @@
 <div align="center">
 
 # [`OofMod Reborn`]
-[![Discord Banner](https://discordapp.com/api/guilds/986666447721873478/widget.png?style=banner2)](https://shr.deftu.xyz/discord)
 
 </div>
+
+[![Discord Banner](https://discordapp.com/api/guilds/986666447721873478/widget.png?style=banner2)](https://shr.deftu.xyz/discord)
 
 ## Permission
 I have asked Powns if I
