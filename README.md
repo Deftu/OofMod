@@ -1,7 +1,7 @@
 <div align="center">
 
 # [`OofMod Reborn`]
-[![Discord Banner](https://discordapp.com/api/guilds/944877423281967135/widget.png?style=banner2)](https://discord.gg/dFb277Kexf)
+[![Discord Banner](https://discordapp.com/api/guilds/986666447721873478/widget.png?style=banner2)](https://shr.deftu.xyz/discord)
 
 </div>
 
