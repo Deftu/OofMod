@@ -27,6 +27,6 @@ project with none of the original's code.
 </div>
 
 [discord]: https://shr.deftu.xyz/discord
-[issues]: /issues/new
+[issues]: https://github.com/Deftu/OofMod/issues/new
 [powns]: https://powns.dev
 [lgpl3]: https://www.gnu.org/licenses/lgpl-3.0.en.html
