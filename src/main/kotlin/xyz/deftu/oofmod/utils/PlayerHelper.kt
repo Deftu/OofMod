@@ -20,20 +20,18 @@ object PlayerHelper {
     }
 
     @SubscribeEvent
-    fun profileCheck(event: ClientTickEvent?) {
+    fun onClientTick(event: ClientTickEvent) {
         tickCounter++
-        if (tickCounter % 20 == 0) {
-            val player = Minecraft.getMinecraft().thePlayer ?: return
-            val sendQueue = player.sendQueue ?: return
-            for (networkPlayerInfo in sendQueue.playerInfoMap) {
-                val gameProfile = networkPlayerInfo.gameProfile
-                if (gameProfile.id != null && gameProfile.id == Minecraft.getMinecraft().session.profile.id) {
-                    playerName = gameProfile.name
-                    break
-                }
-            }
-
-            tickCounter = 0
+        if (tickCounter % 20 != 0) return
+        val player = Minecraft.getMinecraft().thePlayer ?: return
+        val sendQueue = player.sendQueue ?: return
+        for (networkPlayerInfo in sendQueue.playerInfoMap) {
+            val gameProfile = networkPlayerInfo.gameProfile
+            if (gameProfile.id == null || gameProfile.id != Minecraft.getMinecraft().session.profile.id) continue
+            playerName = gameProfile.name
+            break
         }
+
+        tickCounter = 0
     }
 }

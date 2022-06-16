@@ -1,17 +1,14 @@
 package xyz.deftu.oofmod
 
+import gg.essential.api.EssentialAPI
+import gg.essential.api.commands.Command
+import gg.essential.api.commands.DefaultHandler
 import xyz.deftu.oofmod.config.OofModConfig
-import xyz.unifycraft.unicore.api.UniCore
-import xyz.unifycraft.unicore.api.commands.annotations.Command
-import xyz.unifycraft.unicore.api.commands.annotations.Default
 
-@Command(
-    name = OofMod.MODID
-) class OofModCommand {
-    @Default
+object OofModCommand : Command(OofMod.ID) {
+    @DefaultHandler
     fun handle() {
-        OofModConfig.gui()?.let {
-            UniCore.getGuiHelper().showScreen(it)
-        }
+        val gui = OofModConfig.gui() ?: return
+        EssentialAPI.getGuiUtil().openScreen(gui)
     }
 }

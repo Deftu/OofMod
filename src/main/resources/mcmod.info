@@ -1,18 +1,18 @@
 [
-  {
-    "modid": "oofmodreborn",
-    "name": "OofMod Reborn",
-    "description": "Plays a custom sound when something happens.",
-    "version": "${version}",
-    "mcversion": "${mcversion}",
-    "url": "https://github.com/Deftu/OofModReborn",
-    "updateUrl": "https://github.com/Deftu/OofModReborn/releases/latest",
-    "authorList": [
-      "Deftu"
-    ],
-    "credits": "Refraction, Powns, Sk1er LLC",
-    "logoFile": "",
-    "screenshots": [],
-    "dependencies": []
-  }
+    {
+        "modid": "${mod_id}",
+        "name": "${mod_name}",
+        "description": "Plays a custom sound when something happens.",
+        "version": "${mod_version}",
+        "mcversion": "${mc_version}",
+        "url": "https://github.com/Deftu/OofModReborn",
+        "updateUrl": "https://github.com/Deftu/OofModReborn/releases/latest",
+        "authorList": [
+            "Deftu"
+        ],
+        "credits": "Refraction, Powns, Sk1er LLC",
+        "logoFile": "",
+        "screenshots": [],
+        "dependencies": []
+    }
 ]

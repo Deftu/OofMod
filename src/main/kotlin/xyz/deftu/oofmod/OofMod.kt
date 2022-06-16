@@ -2,26 +2,22 @@ package xyz.deftu.oofmod
 
 import gg.essential.api.EssentialAPI
 import gg.essential.universal.ChatColor
+import net.minecraft.client.Minecraft
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import xyz.deftu.oofmod.config.OofModConfig
-import xyz.deftu.oofmod.handlers.impl.RegexHandler
-import xyz.deftu.oofmod.listeners.BedBreakListener
-import xyz.deftu.oofmod.listeners.DeathListener
-import xyz.deftu.oofmod.listeners.KillListener
 import xyz.deftu.oofmod.utils.PlayerHelper
-import xyz.unifycraft.unicore.api.UniCore
 import java.io.File
 
 @Mod(
     name = OofMod.NAME,
     version = OofMod.VERSION,
-    modid = OofMod.MODID
+    modid = OofMod.ID
 ) class OofMod {
     @Mod.EventHandler
     fun initialize(event: FMLInitializationEvent) {
-        configDir = File(File(UniCore.getFileHelper().configDir, "Deftu"), NAME)
+        configDir = File(File(File(Minecraft.getMinecraft().mcDataDir, "config"), "Deftu"), NAME)
         soundsDir = File(configDir, "Sounds")
         if (!configDir.exists() && !configDir.mkdirs())
             throw IllegalStateException("Failed to make $NAME config directory.")
@@ -32,23 +28,20 @@ import java.io.File
         PlayerHelper.initialize()
         // Initialize the mod config via Vigilance's in-built initializer method.
         OofModConfig.initialize()
-        // Start the regex handler thread.
-        RegexHandler.start(configDir.resolve("regex.json").toPath())
 
-        // Register our command with UniCore's command registry.
-        UniCore.getCommandRegistry().registerCommand(OofModCommand())
+        // Register our command with Essential's command registry.
+        OofModCommand.register()
 
-        // Register the event listeners so sounds can be played when needed.
-        MinecraftForge.EVENT_BUS.register(BedBreakListener())
-        MinecraftForge.EVENT_BUS.register(DeathListener())
-        MinecraftForge.EVENT_BUS.register(KillListener())
+        // Register our listeners.
+        MinecraftForge.EVENT_BUS.register(OofModListener)
     }
+
     companion object {
-        const val MODID = "@ID@"
-        const val VERSION = "@VERSION@"
-        const val NAME = "@NAME@"
+        const val ID = "@MOD_ID@"
+        const val VERSION = "@MOD_VERSION@"
+        const val NAME = "@MOD_NAME@"
         const val DEFAULT_SOUND_URL = "https://oofmodsound.powns.dev/oof.wav"
-        const val DISCORD_URL = "https://discord.gg/dFb277Kexf"
+        const val DISCORD_URL = "https://shr.deftu.xyz/discord"
 
         lateinit var configDir: File
             private set
@@ -56,14 +49,14 @@ import java.io.File
             private set
 
         @JvmStatic
-        fun sendMessage(message: String) =
-            EssentialAPI.getMinecraftUtil()
-                .sendMessage(
-                    ChatColor.translateAlternateColorCodes('&', "&l&7[&r&a$NAME&r&ll&7]"),
-                    ChatColor.translateAlternateColorCodes('&', message)
-                )
+        fun sendMessage(message: String) = EssentialAPI.getMinecraftUtil().sendMessage(
+            ChatColor.translateAlternateColorCodes('&', "&l&7[&r&a$NAME&r&ll&7]"),
+            ChatColor.translateAlternateColorCodes('&', message)
+        )
 
-        @Mod.Instance @JvmStatic lateinit var instance: OofMod
+        @JvmStatic
+        @Mod.Instance
+        lateinit var instance: OofMod
             private set
     }
 }
