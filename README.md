@@ -1,10 +1,13 @@
 <div align="center">
 
 # [`OofMod Reborn`]
+[Support][discord]
+·
+[Make a Request][issues]
 
 </div>
 
-[![Discord Banner](https://discordapp.com/api/guilds/986666447721873478/widget.png?style=banner2)](https://shr.deftu.xyz/discord)
+[![Discord Banner](https://discordapp.com/api/guilds/986666447721873478/widget.png?style=banner2)][discord]
 
 ## Permission
 I have asked Powns if I
@@ -23,5 +26,7 @@ project with none of the original's code.
 
 </div>
 
+[discord]: https://shr.deftu.xyz/discord
+[issue]: /issues/new
 [powns]: https://powns.dev
 [lgpl3]: https://www.gnu.org/licenses/lgpl-3.0.en.html
