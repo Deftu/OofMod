@@ -1,1 +1,0 @@
-<p>Play custom .wav sounds whenever you kill anyone :)</p>

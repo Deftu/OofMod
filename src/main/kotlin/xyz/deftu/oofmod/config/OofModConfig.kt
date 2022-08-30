@@ -147,7 +147,7 @@ class OofModConfig : Vigilant(
         addDependency("volume", "advancedSettings")
         addDependency("killDeathRegex", "advancedSettings")
         addDependency("bedBreakRegex", "advancedSettings")
-        registerListener("killDeathRegex", RegexPropertyListener { killDeathPattern = it })
-        registerListener("bedBreakRegex", RegexPropertyListener { bedBreakPattern = it })
+        registerListener("killDeathRegex", RegexPropertyListener(::killDeathPattern))
+        registerListener("bedBreakRegex", RegexPropertyListener(::bedBreakPattern))
     }
 }

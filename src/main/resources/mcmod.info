@@ -1,10 +1,10 @@
 [
   {
-    "modid": "oofmod",
-    "name": "OofMod",
+    "modid": "${mod_id}",
+    "name": "${mod_name}",
     "description": "Plays a sound when something happens.",
-    "version": "${version}",
-    "mcversion": "${mcversion}",
+    "version": "${mod_version}",
+    "mcversion": "${mc_version}",
     "url": "",
     "updateUrl": "",
     "authorList": [

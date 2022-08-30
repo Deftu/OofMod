@@ -16,7 +16,8 @@ object SoundHelper {
                 control.value = volume.toFloat()
                 clip.start()
             } catch (e: Exception) {
-                OofMod.sendMessage("&cAn error occurred while trying to play a sound! Please report this in ${OofMod.DISCORD_URL}.")
+                OofMod.sendMessage("&cAn error occurred while trying to play a sound! Please report this in ${OofMod.DISCORD_URL}. (${e::class.java.simpleName})")
+                e.printStackTrace()
             }
         }
     }

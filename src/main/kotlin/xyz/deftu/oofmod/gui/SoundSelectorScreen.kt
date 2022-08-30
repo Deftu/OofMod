@@ -3,12 +3,9 @@ package xyz.deftu.oofmod.gui
 import gg.essential.api.EssentialAPI
 import gg.essential.api.gui.EssentialGUI
 import gg.essential.elementa.ElementaVersion
-import gg.essential.elementa.UIComponent
-import gg.essential.elementa.components.UIBlock
 import gg.essential.elementa.components.UIContainer
 import gg.essential.elementa.components.UIText
 import gg.essential.elementa.components.UIWrappedText
-import gg.essential.elementa.components.inspector.Inspector
 import gg.essential.elementa.constraints.CenterConstraint
 import gg.essential.elementa.constraints.ChildBasedSizeConstraint
 import gg.essential.elementa.constraints.RelativeConstraint
@@ -28,10 +25,9 @@ import java.net.URI
 import java.net.URL
 import java.nio.channels.Channels
 
-
 class SoundSelectorScreen(
-    val selectedSound: String,
-    val selectedSoundCallback: (String) -> Unit
+    private val selectedSound: String,
+    private val selectedSoundCallback: (String) -> Unit
 ) : EssentialGUI(
     ElementaVersion.V1,
     "${ChatColor.GREEN}${OofMod.NAME}"
@@ -141,7 +137,7 @@ class SoundSelectorScreen(
         val selectedSoundCallback: (String) -> Unit,
         val prevCallback: (SoundComponent) -> Unit,
         val nextCallback: (SoundComponent) -> Unit
-    ) : UIComponent() {
+    ) : UIContainer() {
         init {
             constrain {
                 width = ChildBasedSizeConstraint()
