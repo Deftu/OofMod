@@ -45,7 +45,7 @@ class OofModConfig : Vigilant(
         name = "Kill/Death Message Regex",
         category = "Advanced",
         description = "The Regex used when checking kill/death messages."
-    ) var killDeathRegex = "(?<username>\\w{1,16}).+ (by|of|to|for|with|the) (?:(?<killer>\\w{1,16}))"
+    ) var killDeathRegex = "(?<username>\\w{1,16}) ?.+(by|of|to|for|with|the|from|was|fighting|against|meet) (?:(?<killer>\\w{1,16}))"
     @Property(
         type = PropertyType.TEXT,
         name = "Bed Break Message Regex",
